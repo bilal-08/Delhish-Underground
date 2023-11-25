@@ -25,10 +25,6 @@ app.get('/',(req,res)=>{
 
 console.log('connecting to DB...')
 connect(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true }).then(connection=>console.log("connected to database")).catch(error=>console.error(error))
-    
-//     (err)=>{
-//     if(err) return console.error(err)
-//     console.log('Connected to Database')
-// })
 
-app.listen(PORT,()=>{ console.log(`served at port: ${PORT} & Local : http://localhost:${PORT}`)})
+
+app.listen(PORT,()=>{ console.log(`served at port: ${PORT} & Local : ${proce.env.ALLOWED_ORIGIN}`)})
