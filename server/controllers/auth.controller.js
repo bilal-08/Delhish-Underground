@@ -38,6 +38,7 @@ const login = async (req, res) => {
                 secure: true,
                 sameSite: 'none',
                 maxAge: 24 * 60 * 60 * 1000,
+                partitioned:true
             }
         )
         return res.status(201).send({ id: user.username })
@@ -62,6 +63,7 @@ export const signup = async (req, res) => {
                     secure: true,
                     sameSite: "None",
                     maxAge: 24 * 60 * 60 * 1000,
+                    partitioned: true,
                 })
         }
         res.status(201).send({ id: result.username })
