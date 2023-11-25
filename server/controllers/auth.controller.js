@@ -34,8 +34,10 @@ const login = async (req, res) => {
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
         res.cookie("jwt", token,
             {
-                httpOnly:true,
-                path: '/', sameSite: 'none', secure: true
+                httpOnly: true,
+                secure: IS_SECURE,
+                sameSite: "None",
+                maxAge: 24 * 60 * 60 * 1000,
             }
         )
         return res.status(201).send({ id: user.username })
@@ -56,8 +58,10 @@ export const signup = async (req, res) => {
             const token = createToken(result._id);
             res.cookie('jwt', token,
                 {
-                    httpOnly:true,
-                    path: '/', sameSite: 'none', secure: true
+                    httpOnly: true,
+                    secure: IS_SECURE,
+                    sameSite: "None",
+                    maxAge: 24 * 60 * 60 * 1000,
                 })
         }
         res.status(201).send({ id: result.username })
