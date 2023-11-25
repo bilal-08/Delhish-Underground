@@ -11,7 +11,7 @@ function Recipe() {
     const [recipe, setRecipe] = useState([]);
     useEffect(() => {
         const getRecipes = async () => {
-            const res = await axios.get(`http://127.0.0.1:3000/recipe/${recipeId}`)
+            const res = await axios.get(`${import.meta.env.VITE_URL}/recipe/${recipeId}`)
             setRecipe(res.data)
         }
         getRecipes();
