@@ -36,7 +36,7 @@ const login = async (req, res) => {
             {
                 httpOnly: true,
                 secure: true,
-                sameSite: "None",
+                sameSite: "strict",
                 maxAge: 24 * 60 * 60 * 1000,
             }
         )
@@ -60,7 +60,7 @@ export const signup = async (req, res) => {
                 {
                     httpOnly: true,
                     secure: true,
-                    sameSite: "None",
+                    sameSite: "strict",
                     maxAge: 24 * 60 * 60 * 1000,
                 })
         }
