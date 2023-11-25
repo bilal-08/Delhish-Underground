@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Button from './Button';
 import axios from 'axios'
 function Login() {
   const [formData, setFormData] = useState({
@@ -62,9 +63,7 @@ function Login() {
        }
         <input className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.email} name="email" placeholder="Enter email"></input>
         <input className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.password} name="password" placeholder="Enter password"></input>
-        <button className="p-2 h-[70px] w-52 bg-[#1C60F6] font-bold  text-white rounded-lg" type="submit" 
-        style={{backgroundColor:loading? "#7d88a0" : "#1C60F6"}}
-        >Login</button>
+        <Button>Login</Button>
       </form>
       {/* 647599,7d88a0 */}
     </div>

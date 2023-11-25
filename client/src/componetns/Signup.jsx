@@ -1,6 +1,7 @@
 import {useState} from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import Button from './Button';
 function Signup() {
     const [formData,setFormData] = useState({
         email:"",
@@ -68,9 +69,7 @@ function Signup() {
             <input className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.email} name="email" placeholder="Enter email"></input>
             <input className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.password} name="password" placeholder="Enter password"></input>
             <input className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.confirmPassword} name="confirmPassword" placeholder="Enter confirm password"></input>
-            <button className="p-2 h-[70px] w-52 bg-[#1C60F6] font-bold  text-white rounded-lg" type="submit"
-            style={{backgroundColor:loading? "#7d88a0" : "#1C60F6"}}
-            >Sign-up!</button>
+            <Button>Sign-up!</Button>
             </form>
 
         </div>

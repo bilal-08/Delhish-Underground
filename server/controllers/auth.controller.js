@@ -34,7 +34,7 @@ const login = async (req, res) => {
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
         res.cookie("jwt", token,
             {
-                // httpOnly:true,
+                httpOnly:true,
                 path: '/', sameSite: 'none', secure: true
             }
         )
@@ -56,7 +56,7 @@ export const signup = async (req, res) => {
             const token = createToken(result._id);
             res.cookie('jwt', token,
                 {
-                    // httpOnly:true,
+                    httpOnly:true,
                     path: '/', sameSite: 'none', secure: true
                 })
         }
