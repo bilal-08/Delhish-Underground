@@ -60,7 +60,7 @@ export const signup = async (req, res) => {
                 {
                     httpOnly: true,
                     secure: true,
-                    sameSite: 'none',
+                    sameSite: "None",
                     maxAge: 24 * 60 * 60 * 1000,
                 })
         }
