@@ -29,5 +29,7 @@ export const uploadImg = async (path) => {
     method: 'POST',
     body: form,
   }).catch(x => console.error(x))
-  return (await result.json()).data.image.url
+const resu = await result.json()
+console.log(resu)
+  return (resu).data.image.url
 }
