@@ -73,8 +73,9 @@ function UploadPost() {
       })
       navigate('/')
     } catch (error) {
-      if(error.response && error.response.status == 400 && error.response.data.msg == "cookie not found") {
-      return setOpenPopUp(true)
+      console.error(error)
+      if(error.response && error.response.status == 400) {
+        if(error.response.data.msg == "cookie not found") return setOpenPopUp(true)
       }
     }
   }

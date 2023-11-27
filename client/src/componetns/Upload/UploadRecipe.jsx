@@ -91,11 +91,10 @@ function UploadRecipe() {
       console.log(navigate('/blogs'))
       console.log(res)
     } catch (error) {
-      if(error.response && error.response.status == 400 && error.response.data.msg == "cookie not found") {
-        return setOpenPopUp(true)
-        }
-      setError({ iserror: true, msg: "Something went wrong" })
       console.error(error)
+      if(error.response && error.response.status == 400) {
+        if(error.response.data.msg == "cookie not found") return setOpenPopUp(true)
+      }
     }
   }
 
