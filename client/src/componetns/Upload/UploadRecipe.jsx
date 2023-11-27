@@ -93,7 +93,7 @@ function UploadRecipe() {
     } catch (error) {
       console.error(error)
       if(error.response && error.response.status == 400) {
-        if(error.response.data.msg == "cookie not found") return setOpenPopUp(true)
+        if(error.response.data.error == "cookie not found") return setOpenPopUp(true)
       }
     }
   }
