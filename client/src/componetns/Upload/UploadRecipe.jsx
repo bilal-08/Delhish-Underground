@@ -12,13 +12,13 @@ function UploadRecipe() {
   })
 
   
-  useEffect(() => {
-    const cookie = document.cookie.split("=")[0] ? true : false;
-    if (!cookie) {
-      setOpenPopUp(true)
-    }
+  // useEffect(() => {
+  //   const cookie = document.cookie.split("=")[0] ? true : false;
+  //   if (!cookie) {
+  //     setOpenPopUp(true)
+  //   }
 
-  }, [])
+  // }, [])
   const [file, setFile] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
@@ -26,7 +26,6 @@ function UploadRecipe() {
   const handleChange = (event) => {
 
     const { name, value } = event.target;
-    console.log(event.target.name)
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
@@ -92,6 +91,9 @@ function UploadRecipe() {
       console.log(navigate('/blogs'))
       console.log(res)
     } catch (error) {
+      if(error.response.data.msg == "cookie not found" && error.response.status == 400) {
+       return setOpenPopUp(true)
+      }
       setError({ iserror: true, msg: "Something went wrong" })
       console.error(error)
     }

@@ -7,13 +7,13 @@ function UploadPost() {
   const [formData, setFormData] = useState({
     description: ""
   })
-  useEffect(() => {
-    const cookie = document.cookie.split("=")[0] ? true : false;
-    if (!cookie) {
-      setOpenPopUp(true)
-    }
+  // useEffect(() => {
+  //   const cookie = document.cookie.split("=")[0] ? true : false;
+  //   if (!cookie) {
+  //     setOpenPopUp(true)
+  //   }
 
-  }, [])
+  // }, [])
 
 
   const [file, setFile] = useState()
@@ -24,7 +24,6 @@ function UploadPost() {
   const handleChange = (event) => {
 
     const { name, value } = event.target;
-    console.log(event.target.name)
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
   const handleFileChange = (event) => {
@@ -74,7 +73,9 @@ function UploadPost() {
       })
       navigate('/')
     } catch (error) {
-      console.error(error.response && error.response.status == 400)
+      if(error.response.data.msg == "cookie not found" && error.response.status == 400) {
+      return setOpenPopUp(true)
+      }
     }
   }
 
