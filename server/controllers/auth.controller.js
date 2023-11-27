@@ -23,8 +23,6 @@ const createToken = (id) => {
 }
 
 const login = async (req, res) => {
-    const token = req.cookies.jwt
-    if(!token) return res.status(400).json({error:"cookie not found",success:false})
     const { email, password } = req.body;
     const user = await User.findOne({ email })
     if (!user) return res.send("user not found")
@@ -55,8 +53,6 @@ const login = async (req, res) => {
 
 
 export const signup = async (req, res) => {
-    const token = req.cookies.jwt
-    if(!token) return res.status(400).json({error:"cookie not found",success:false})
     const { username, email, password } = req.body
     try {
 
