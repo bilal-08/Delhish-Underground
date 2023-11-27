@@ -22,7 +22,7 @@ export const upload = multer({ storage });
 
 
 export const uploadImg = async (path) => {
-  const file = fs.createReadStream(path)
+  const file = fs.readFileSync(path)
   const form = new FormData();
   form.append("image", file)
   const result = await fetch("https://api.imgbb.com/1/upload?key=235ef89fb9a32fa804cddf4a7226d775", {
