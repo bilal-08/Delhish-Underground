@@ -8,7 +8,7 @@ function Blog() {
   const [recipe, setRecipe] = useState([]);
   useEffect(() => {
     const getRecipes = async () => {
-      const res = await axios.get("http://127.0.0.1:3000/recipes")
+      const res = await axios.get(`${import.meta.env.VITE_URL}/recipes`)
       setRecipe(res.data)
     }
     getRecipes();
