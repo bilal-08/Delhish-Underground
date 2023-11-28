@@ -1,7 +1,7 @@
 import PostCard from "./PostCard";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-function Post({posts}) {
+function Post() {
 
   const [post, setPost] = useState([]);
   useEffect(() => {

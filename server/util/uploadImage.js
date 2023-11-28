@@ -3,8 +3,6 @@ import multer from 'multer';
 import path from 'path'
 import FormData from 'form-data'
 import fs from 'fs';
-import * as url from 'url';
-const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, '/tmp/');
@@ -25,7 +23,7 @@ export const uploadImg = async (path) => {
   const file = fs.readFileSync(path)
   const form = new FormData();
   form.append("image", file.toString('base64'))
-  const result = await fetch("https://api.imgbb.com/1/upload?key=235ef89fb9a32fa804cddf4a7226d775", {
+  const result = await fetch(`https://api.imgbb.com/1/upload?key=${process.env.IMGBB_API_KEY}`, {
     method: 'POST',
     body: form,
   }).catch(x => console.error(x))

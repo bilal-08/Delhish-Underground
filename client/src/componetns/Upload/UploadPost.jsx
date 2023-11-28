@@ -7,19 +7,9 @@ function UploadPost() {
   const [formData, setFormData] = useState({
     description: ""
   })
-  // useEffect(() => {
-  //   const cookie = document.cookie.split("=")[0] ? true : false;
-  //   if (!cookie) {
-  //     setOpenPopUp(true)
-  //   }
-
-  // }, [])
-
-
   const [file, setFile] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
-  const [isOpen, setIsOpen] = useState(true)
   const navigate = useNavigate();
   const handleChange = (event) => {
 
@@ -60,7 +50,6 @@ function UploadPost() {
       return;
     }
     try {
-      console.log(formData)
       const { description } = formData;
       const form = new FormData();
       form.append("image", file)
@@ -84,12 +73,12 @@ function UploadPost() {
   return <>
     {
       openPopUp && <>
-        <div className="bg-white w-80 h-80 fixed z-10 rounded-2xl border-[1px] border-[#b2b0b0]  flex flex-col items-center justify-start gap-3  left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 -translate-y-2/4" style={{ display: isOpen ? "flex" : "none" }} >
+        <div className="bg-white w-80 h-80 fixed z-10 rounded-2xl border-[1px] border-[#b2b0b0]  flex flex-col items-center justify-start gap-3  left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 -translate-y-2/4" >
           <div className="flex justify-center w-full p-3" >Please Login or Signup to continue</div>
           <Link to={'/login'} className="w-10/12">  <p className="h-16 w-full font-inter font-bold bg-white rounded-md border-[1px] border-[#b2b0b0] flex justify-center items-center">Login </p></Link>
           <Link to={'/signup'} className="h-16 w-10/12 font-inter font-bold bg-white rounded-md border-[1px] border-[#b2b0b0] flex justify-center items-center"> Sign-up </Link>
         </div>
-        <div className=" w-full h-full flex items-center justify-center fixed backdrop-blur-xl left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 z-0" style={{ display: isOpen ? "block" : "none" }} >
+        <div className=" w-full h-full flex items-center justify-center fixed backdrop-blur-xl left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 z-0" >
 
         </div>
       </>

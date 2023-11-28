@@ -1,6 +1,5 @@
 import { useParams } from "react-router-dom";
 import Navbar from "../componetns/Navbar";
-import Buttonbar from "../componetns/Buttonbar";
 import BottomNavBar from "../componetns/bottomNavBar";
 import { useState, useEffect } from "react";
 import axios from 'axios'
@@ -21,7 +20,6 @@ function Recipe() {
     const { title, imageUrl, ingredients, instruction, description } = recipe
     return <>
         <Navbar />
-        <Buttonbar />
         <div className="flex mt-20 max-sm:flex-col ">
 
             <div className="w-2/4 flex  justify-center  max-sm:w-full max-sm:mb-10">

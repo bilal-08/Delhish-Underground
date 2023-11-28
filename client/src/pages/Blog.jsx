@@ -1,5 +1,4 @@
 import Navbar from "../componetns/Navbar";
-import Buttonbar from "../componetns/Buttonbar";
 import BottomNavBar from "../componetns/bottomNavBar";
 import RecipeCard from '../componetns/Card/RecipeCard'
 import { useState, useEffect } from 'react'
@@ -17,7 +16,6 @@ function Blog() {
   }, [])
   return <>
     <Navbar />
-    <Buttonbar />
 
 
     <div className="min-h-screen">

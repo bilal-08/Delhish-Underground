@@ -3,10 +3,7 @@ import { useState } from "react";
 function BottomNavBar () {
     const username = localStorage.getItem("DUusername") || "guest"
     const [isOpen, setIsOpen] = useState(false)
-    function OpenModal(e){
-
-    }
-
+    
     return <>
 <div className="bg-white w-80 h-80 fixed z-10 rounded-2xl border-[1px] border-[#b2b0b0]  flex flex-col items-center justify-start gap-3  left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 -translate-y-2/4" style={{display:isOpen ? "flex": "none"}} > 
 <div className="flex justify-end w-full p-3" onClick={()=>{setIsOpen(false)}}><img src="/cross.svg"></img></div>

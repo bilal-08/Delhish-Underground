@@ -10,15 +10,6 @@ function UploadRecipe() {
     instruction: "",
     ingredients: "",
   })
-
-  
-  // useEffect(() => {
-  //   const cookie = document.cookie.split("=")[0] ? true : false;
-  //   if (!cookie) {
-  //     setOpenPopUp(true)
-  //   }
-
-  // }, [])
   const [file, setFile] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
@@ -45,13 +36,11 @@ function UploadRecipe() {
   useEffect(() => {
     if (!file) return;
     const objectUrl = URL.createObjectURL(file)
-    setPreview(objectUrl)
     return () => URL.revokeObjectURL(objectUrl)
   }, [file])
   const handleform = async (e) => {
     e.preventDefault();
     setError({ iserror: false, msg: "" })
-    // console.log(file)
     if (!file) {
       setError({
         iserror: true, msg: `Please Upload a file`
@@ -80,7 +69,6 @@ function UploadRecipe() {
       form.append("description", description)
       form.append("instruction", instruction)
       form.append("ingredients", ingredients)
-      console.log(form)
       const res = await axios.post(`${import.meta.env.VITE_URL}/recipe/create`, form, {
         headers: {
           "Content-Type": "multipart/form-data",

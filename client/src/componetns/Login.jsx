@@ -38,14 +38,14 @@ function Login() {
     try {
     setLoading(true)
 
-      const es = await axios.post(`${import.meta.env.VITE_URL}/login`,JSON.stringify(formData),{
+      const res = await axios.post(`${import.meta.env.VITE_URL}/login`,JSON.stringify(formData),{
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Credentials": true,
         },
         withCredentials: true,
       })
-      localStorage.setItem("DUusername",es.data.id)
+      localStorage.setItem("DUusername",res.data.id)
       navigate('/')
     } catch (error) {
       setError({iserror:true,msg:error.response.data.msg })

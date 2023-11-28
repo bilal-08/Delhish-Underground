@@ -1,6 +1,6 @@
 import Recipe from "../models/Recipe.model.js";
 import User from "../models/User.model.js"
-import { upload, uploadImg } from "../util/uploadImage.js";
+import { uploadImg } from "../util/uploadImage.js";
 export const getAllRecipes = async (req, res) => {
 
     const result = await Recipe.find({}, { imageUrl: 1, description: 1, title: 1, username: 1, recipeId: 1, _id: 0 }).sort({ createdAt: -1 })

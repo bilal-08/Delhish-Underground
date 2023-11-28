@@ -32,15 +32,13 @@ const login = async (req, res) => {
         res.header('Content-Type', 'application/json;charset=UTF-8')
         res.header('Access-Control-Allow-Credentials', true)
         res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-        // res.setHeader('Set-Cookie', `jwt=${token}; HttpOnly; Secure; SameSite=None; Max-Age=86400000; Path=/; Partitioned;`);
-
         res.cookie("jwt", token,
             {
                 httpOnly: true,
                 secure: true,
                 sameSite: 'none',
                 maxAge: 24 * 60 * 60 * 1000,
-                Partitioned:true
+                Partitioned: true
             }
         )
         return res.status(201).send({ id: user.username })
@@ -59,8 +57,6 @@ export const signup = async (req, res) => {
         const result = await new User({ username, email, password }).save();
         if (result) {
             const token = createToken(result._id);
-        // res.setHeader('Set-Cookie', `jwt=${token}; HttpOnly; Secure; SameSite=None; Max-Age=86400000; Path=/; Partitioned;`);
-
             res.cookie('jwt', token,
                 {
                     httpOnly: true,
