@@ -49,7 +49,7 @@ function Recipe() {
                             </p>
                         </div>
 
-                        <div className="font-poppins font-normal w-[360px] min-h-[205px] mt-10 mb-12">
+                        <div className="font-poppins font-normal w-[360px] min-h-[205px] mt-10 mb-24">
                             <p>
                                 {instruction}
                             </p>
