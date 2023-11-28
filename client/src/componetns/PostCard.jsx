@@ -1,7 +1,7 @@
 
 function PostCard({ username, img, description }) {
     return <>
-        <div className="bg-white min-h-[429px] w-[350px] rounded-xl border-2 border-[#DCDCE0] shadow-2xl max-sm:w-[250px]">
+        <div className="bg-white min-h-[429px] w-[350px] rounded-xl border-2 border-[#DCDCE0] shadow-2xl max-sm:w-[300px]">
             <div className="font-inter font-normal text-xs flex justify-start items-center border-b-2 border-[#DCDCE0]">
                 <img className="w-5 h-5 rounded-full m-2  " src={`https://avatar.vercel.sh/${username.toLowerCase()}`}></img>
                 {username}</div>
