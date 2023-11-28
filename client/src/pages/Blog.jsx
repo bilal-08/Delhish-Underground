@@ -19,7 +19,7 @@ function Blog() {
 
 
     <div className="min-h-screen">
-      <div className="grid grid-cols-4 gap-y-14 gap-x-7 mt-10 p-10 mb-10 max-sm:grid-cols-1 max-sm:gap-x-0 max-sm:gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-y-14 gap-x-7 mt-10 p-10 mb-10 max-sm:grid-cols-1 max-sm:gap-x-0 max-sm:gap-6 place-items-center">
         {
           recipe.map(({ username, imageUrl, title, description, recipeId }, i) => {
             return <RecipeCard key={i} recipeId={recipeId} description={description} title={title} img={imageUrl} username={username} />
