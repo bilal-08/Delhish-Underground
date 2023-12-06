@@ -23,8 +23,8 @@ function Recipe() {
         <div className="flex mt-20 max-sm:flex-col ">
 
             <div className="w-2/4 flex  justify-center  max-sm:w-full max-sm:mb-10">
-                <div className="font-poppins text-2xl font-bold">
-                    <p>{title}</p>
+                <div className="font-poppins text-2xl font-bold max-sm:flex max-sm:flex-col max-sm:items-center">
+                    <p className="">{title}</p>
                     <div className="w-[330px] h-[200px]"><img src={imageUrl} className="object-cover w-[330px] h-[200px]"></img></div>
                 </div>
 

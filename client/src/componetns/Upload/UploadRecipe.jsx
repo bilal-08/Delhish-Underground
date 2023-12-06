@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom'
-import Button from '../Button';
+import Button from '../Button/Button';
 import axios from 'axios';
 function UploadRecipe() {
   const [formData, setFormData] = useState({
@@ -11,9 +11,17 @@ function UploadRecipe() {
     ingredients: "",
   })
   const [file, setFile] = useState()
+  const [preview, setPreview] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
+  const textAreaRef = useRef(null)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    textAreaRef.current.style.height = "auto"
+textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
+  }, [formData.description])
+  
   const handleChange = (event) => {
 
     const { name, value } = event.target;
@@ -36,6 +44,7 @@ function UploadRecipe() {
   useEffect(() => {
     if (!file) return;
     const objectUrl = URL.createObjectURL(file)
+    setPreview(objectUrl)
     return () => URL.revokeObjectURL(objectUrl)
   }, [file])
   const handleform = async (e) => {
@@ -90,32 +99,34 @@ function UploadRecipe() {
   return <>
 
     {
-      openPopUp && <>
-        <div className="bg-white w-80 h-80 fixed z-10 rounded-2xl border-[1px] border-[#b2b0b0]  flex flex-col items-center justify-start gap-3  left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 -translate-y-2/4" >
-          <div className="flex justify-center w-full p-3 font-inter font-semibold" >Please Login or Signup to continue</div>
-          <Link to={'/login'} className="w-10/12">  <p className="h-16 w-full font-inter font-bold bg-white rounded-md border-[1px] border-[#b2b0b0] flex justify-center items-center">Login </p></Link>
-          <Link to={'/signup'} className="h-16 w-10/12 font-inter font-bold bg-white rounded-md border-[1px] border-[#b2b0b0] flex justify-center items-center"> Sign-up </Link>
-        </div>
-        <div className=" w-full h-full flex items-center justify-center fixed backdrop-blur-xl left-2/4 top-left-2/4 right-0 bottom-0 -translate-x-2/4 z-0">
-
-        </div>
-      </>
+      openPopUp && <Popup />
     }
 
-    <div className="h-screen flex flex-col justify-center items-center">
-      <h3 className="font-inter font-semibold text-4xl pb-10 max-sm:text-2xl">Upload A delicious recipe!</h3>
-      <label htmlFor="myfile">Select a file:</label>
-      <input type="file" id="myfile" name="myfile" onChange={handleFileChange}></input>
-      <form onSubmit={handleform} className="flex flex-col font-inter font-regular w-[300px] justify-center items-center">
+    <div className="min-h-screen flex flex-col justify-center items-center mb-10">
+    <h3 className="font-poppins mt-12 font-semibold text-4xl pb-5 max-sm:text-2xl">Upload A delicious recipe!</h3>
+      <h3 className="font-poppins font-semibold text-sm pb-5 max-sm:text-xs">Be it a Original Dish your speciality!</h3>
+      <label htmlFor="myfile" style={{border:file?"solid":""}} className="h-60 w-80 m-3 cursor-pointer font-poppins font-normal flex flex-col justify-center items-center border-dashed rounded-xl border-gray-700 border-2">
+  <img className={`${file ? "w-full h-full object-cover rounded-lg" : "h-20 w-20" }`} src={file ? preview : "/cloud-upload.png"}></img>
+{!file && <p>Click here to select the image</p>}
+</label>
+<input accept="image/*" className="hidden" type="file" id="myfile" name="myfile" onChange={handleFileChange}></input>
+ <form onSubmit={handleform} className="flex flex-col font-inter font-regular w-[325px] justify-center items-center">
         {
           error.iserror && <p className='text-red-500 w-full text-right p-3'>{error.msg}</p>
         }
-        <input className="p-3  w-full mb-3 mt-3
+        <label className="font-poppins mr-48 mt-3">Enter title</label>
+        <input className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"2"} ref={textAreaRef} placeholder="Type something here..."></input>
+        
+        {/* <input className="p-3  w-full mb-3 mt-3
          rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.title} name="title" placeholder="Enter title"></input>
-        <textarea className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.description} name="description" placeholder="Enter description"></textarea>
-        <textarea className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.instruction} name="instruction" placeholder="Enter instruction"></textarea>
-        <textarea className="p-3  w-full mb-3 rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.ingredients} name="ingredients" placeholder="Enter ingredients"></textarea>
-        <Button > SUBMIT 😋</Button>
+        */}
+        <label className="font-poppins mr-36">Enter description</label>
+        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
+        <label className="font-poppins mr-36">Enter instruction</label>
+        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
+        <label className="font-poppins mr-36">Enter ingredients</label>
+        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
+       <Button>SUBMIT 😋</Button>
       </form>
 
     </div>
