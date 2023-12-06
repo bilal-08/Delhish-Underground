@@ -27,4 +27,4 @@ console.log('connecting to DB...')
 connect(process.env.MONGODB_URI,{ useNewUrlParser: true, useUnifiedTopology: true }).then(connection=>console.log("connected to database")).catch(error=>console.error(error))
 
 
-app.listen(PORT,()=>{ console.log(`served at port: ${PORT} & Local : ${proce.env.ALLOWED_ORIGIN}`)})
+app.listen(PORT,()=>{ console.log(`served at port: ${PORT} & Local : ${process.env.ALLOWED_ORIGIN}`)})
