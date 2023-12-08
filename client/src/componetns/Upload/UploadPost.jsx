@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import Popup from '../Modal/Popup';
 function UploadPost() {
@@ -26,8 +26,24 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
     const { name, value } = event.target;
     setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0])
+  const handleFileChange =async (event) => {
+    const img = event.target.files[0]
+    console.log('originalFile instanceof Blob', img instanceof Blob);
+    console.log(`originalFile size ${img.size / 1024 / 1024} MB`);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    }
+    try {
+      const compressedFile = await imageCompression(img, options);
+      console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+      setFile(compressedFile)
+  
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     if (!file) return;

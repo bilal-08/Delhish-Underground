@@ -6,7 +6,6 @@ import axios from 'axios'
 function Recipe() {
     const { recipeId } = useParams();
     const [activeTab, setActiveTab] = useState("instructions");
-
     const [recipe, setRecipe] = useState([]);
     useEffect(() => {
         const getRecipes = async () => {
