@@ -1,6 +1,6 @@
 import { useState, useEffect,useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom'
+import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import axios from 'axios';
 function UploadRecipe() {
@@ -38,8 +38,24 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
   };
 
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0])
+  const handleFileChange = async(event) => {
+    const img = event.target.files[0]
+    console.log('originalFile instanceof Blob', img instanceof Blob);
+    console.log(`originalFile size ${img.size / 1024 / 1024} MB`);
+    const options = {
+      maxSizeMB: 1,
+      maxWidthOrHeight: 1920,
+      useWebWorker: true,
+    }
+    try {
+      const compressedFile = await imageCompression(img, options);
+      console.log('compressedFile instanceof Blob', compressedFile instanceof Blob); // true
+      console.log(`compressedFile size ${compressedFile.size / 1024 / 1024} MB`); // smaller than maxSizeMB
+      setFile(compressedFile)
+  
+    } catch (error) {
+      console.log(error);
+    }
   }
   useEffect(() => {
     if (!file) return;
@@ -115,7 +131,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
           error.iserror && <p className='text-red-500 w-full text-right p-3'>{error.msg}</p>
         }
         <label className="font-poppins mr-48 mt-3">Enter title</label>
-        <input className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"2"} ref={textAreaRef} placeholder="Type something here..."></input>
+        <input className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.title} name="title" rows={"2"} ref={textAreaRef} placeholder="Type something here..."></input>
         
         {/* <input className="p-3  w-full mb-3 mt-3
          rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.title} name="title" placeholder="Enter title"></input>
@@ -123,9 +139,9 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
         <label className="font-poppins mr-36">Enter description</label>
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
         <label className="font-poppins mr-36">Enter instruction</label>
-        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
+        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.instruction} name="instruction" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
         <label className="font-poppins mr-36">Enter ingredients</label>
-        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
+        <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.ingredients} name="ingredients" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
        <Button>SUBMIT 😋</Button>
       </form>
 
