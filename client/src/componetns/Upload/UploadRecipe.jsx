@@ -120,7 +120,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
 
     <div className="min-h-screen flex flex-col justify-center items-center mb-10">
     <h3 className="font-poppins mt-12 font-semibold text-4xl pb-5 max-sm:text-2xl">Upload A delicious recipe!</h3>
-      <h3 className="font-poppins font-semibold text-sm pb-5 max-sm:text-xs">Be it a Original Dish your speciality!</h3>
+      <h3 className="font-poppins font-semibold text-sm pb-5 max-sm:text-xs">Whether it's an original dish or your specialty</h3>
       <label htmlFor="myfile" style={{border:file?"solid":""}} className="h-60 w-80 m-3 cursor-pointer font-poppins font-normal flex flex-col justify-center items-center border-dashed rounded-xl border-gray-700 border-2">
   <img className={`${file ? "w-full h-full object-cover rounded-lg" : "h-20 w-20" }`} src={file ? preview : "/cloud-upload.png"}></img>
 {!file && <p>Click here to select the image</p>}

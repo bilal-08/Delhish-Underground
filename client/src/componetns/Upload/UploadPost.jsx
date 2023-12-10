@@ -105,7 +105,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
 
     <div className="min-h-screen flex flex-col justify-start items-center">
       <h3 className="font-poppins mt-12 font-semibold text-4xl pb-5">Create a post!</h3>
-      <h3 className="font-poppins font-semibold text-sm pb-5">Take delicious photo of what you eat before eating :)</h3>
+      <h3 className="font-poppins font-semibold text-sm  m-5 text-center max-sm:text-xs">Capture a delightful photo of your meal before savoring each bite :)</h3>
       
       <label htmlFor="myfile" style={{border:file?"solid":""}} className="h-60 w-80 m-3 cursor-pointer font-poppins font-normal flex flex-col justify-center items-center border-dashed rounded-xl border-gray-700 border-2">
 

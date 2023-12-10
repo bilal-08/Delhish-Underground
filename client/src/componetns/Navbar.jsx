@@ -12,7 +12,7 @@ const Navbar = () => {
             </div>
 
             <div className="flex w-10/12 justify-center">
-            <div><img src="/spoon-fork-icon.png"></img></div>
+            <div><img className="w-10 h-10" src="/spoon-fork-icon.png"></img></div>
             <div className="font-lobster text-4xl max-sm:text-3xl">Delish Underground</div>
             </div>
             
