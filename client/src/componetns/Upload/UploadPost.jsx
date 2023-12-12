@@ -4,7 +4,7 @@ import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import Popup from '../Modal/Popup';
-import Loading from '../Loading/loading';
+import Loading from '../Loading/Loading';
 function UploadPost() {
   const [formData, setFormData] = useState({
     description: ""

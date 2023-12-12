@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import axios from 'axios';
-import Loading from '../Loading/loading';
+import Loading from '../Loading/Loading';
 function UploadRecipe() {
   const [formData, setFormData] = useState({
     title: "",

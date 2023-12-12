@@ -2,7 +2,7 @@ import {useState} from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Button from './Button/Button';
-import Loading from './Loading/loading';
+import Loading from './Loading/Loading';
 function Signup() {
     const [formData,setFormData] = useState({
         email:"",
