@@ -2,6 +2,7 @@ import {useState} from 'react';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Button from './Button/Button';
+import Loading from './Loading/loading';
 function Signup() {
     const [formData,setFormData] = useState({
         email:"",
@@ -42,6 +43,7 @@ function Signup() {
             return;
           }
         try {
+          setLoading(true)
         const res = await axios.post(`${import.meta.env.VITE_URL}/signup`,
         JSON.stringify(formData),{
             headers: {
@@ -53,9 +55,9 @@ function Signup() {
           localStorage.setItem("DUusername",res.data.id)
           navigate('/')
         } catch (error) {
+          setLoading(false)
             console.error(error)
             setError({iserror:true,msg:error.response.data.errors.email ||error.response.data.errors.password })
-            setLoading(false)
         }
     }
 
@@ -81,7 +83,7 @@ function Signup() {
           <input id="confirmPassword" className="p-3  w-full mb-3 border-b-2 border-black text-black bg-none outline-none peer/confirmPassword" type={isEyeOpen ? "text" : "confirmPassword"} onChange={handleChange} value={formData.confirmPassword} name="confirmPassword"></input>
           <label htmlFor="confirmPassword" className={`absolute left-0 p-3 font-poppins font-light text-gray-800 text-semibold transition  peer-focus/confirmPassword:-translate-y-[25px] peer-focus/confirmPassword:text-sm select-none ${formData.confirmPassword ? "text-sm -translate-y-[25px]" : "text-lg max-sm:text-sm"}`}>Confirm Password</label>
           <label onClick={() => { setIsEyeOpen((open) => !open) }} className="absolute right-0 m-3 select-none"><img className="h-6 w-6" src={isEyeOpen ? "/eye-open.png" : "/eye-closed.png"}></img></label>
-          <Button>Sign-up!</Button>
+          <Button disabled={loading?true:false}>{ loading ? <Loading/> : "Sign-up!"}</Button>
         </div>
             </form>
         </div>

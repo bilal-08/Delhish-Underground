@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button/Button';
 import axios from 'axios'
+import Loading from './Loading/loading';
 function Login() {
   const [formData, setFormData] = useState({
     email: "",
@@ -49,8 +50,8 @@ function Login() {
       localStorage.setItem("DUusername", res.data.id)
       navigate('/')
     } catch (error) {
-      setError({ iserror: true, msg: error.response.data.msg })
       setLoading(false)
+      setError({ iserror: true, msg: error.response.data.msg })
       console.error(error)
     }
   }
@@ -72,7 +73,7 @@ function Login() {
           <label htmlFor="password" className={`absolute left-0 p-3 font-poppins font-light text-gray-800 text-semibold transition  peer-focus/password:-translate-y-[25px] peer-focus/password:text-sm select-none ${formData.password ? "text-sm -translate-y-[25px]" : "text-lg max-sm:text-sm"}`}>Password</label>
           <span onClick={() => { setIsEyeOpen((open) => !open) }} className="absolute right-0 m-3 select-none"><img className="h-6 w-6" src={isEyeOpen ? "/eye-open.png" : "/eye-closed.png"}></img></span>
         </div>
-        <Button>LOGIN</Button>
+        <Button disabled={loading?true:false}>{ loading ? <Loading/> : "LOGIN"}</Button>
       </form>
 
       {/* 647599,7d88a0 */}

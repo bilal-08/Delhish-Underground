@@ -147,7 +147,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
         <label className="font-poppins mr-36">Enter ingredients</label>
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.ingredients} name="ingredients" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
         
-       <Button>{ loading ? <Loading/> : "SUBMIT 😋"}</Button>
+       <Button disabled={loading?true:false}>{ loading ? <Loading/> : "SUBMIT 😋"}</Button>
       </form>
 
     </div>
