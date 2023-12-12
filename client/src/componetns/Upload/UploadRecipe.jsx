@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import axios from 'axios';
+import Loading from '../Loading/loading';
 function UploadRecipe() {
   const [formData, setFormData] = useState({
     title: "",
@@ -14,6 +15,7 @@ function UploadRecipe() {
   const [preview, setPreview] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
+  const [loading, setLoading] = useState(false)
   const textAreaRef = useRef(null)
   const navigate = useNavigate();
 
@@ -94,6 +96,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       form.append("description", description)
       form.append("instruction", instruction)
       form.append("ingredients", ingredients)
+      setLoading(true)
       const res = await axios.post(`${import.meta.env.VITE_URL}/recipe/create`, form, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -104,6 +107,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       console.log(navigate('/blogs'))
       console.log(res)
     } catch (error) {
+      setLoading(false)
       console.error(error)
       if(error.response && error.response.status == 400) {
         if(error.response.data.error == "cookie not found") return setOpenPopUp(true)
@@ -118,7 +122,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       openPopUp && <Popup />
     }
 
-    <div className="min-h-screen flex flex-col justify-center items-center mb-10">
+  <div className="min-h-screen flex flex-col justify-center items-center mb-10">
     <h3 className="font-poppins mt-12 font-semibold text-4xl pb-5 max-sm:text-2xl">Upload A delicious recipe!</h3>
       <h3 className="font-poppins font-semibold text-sm pb-5 max-sm:text-xs">Whether it's an original dish or your specialty</h3>
       <label htmlFor="myfile" style={{border:file?"solid":""}} className="h-60 w-80 m-3 cursor-pointer font-poppins font-normal flex flex-col justify-center items-center border-dashed rounded-xl border-gray-700 border-2">
@@ -142,7 +146,8 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.instruction} name="instruction" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
         <label className="font-poppins mr-36">Enter ingredients</label>
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.ingredients} name="ingredients" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
-       <Button>SUBMIT 😋</Button>
+        
+       <Button>{ loading ? <Loading/> : "SUBMIT 😋"}</Button>
       </form>
 
     </div>

@@ -4,6 +4,7 @@ import axios from 'axios';
 import imageCompression from 'browser-image-compression';
 import Button from '../Button/Button';
 import Popup from '../Modal/Popup';
+import Loading from '../Loading/loading';
 function UploadPost() {
   const [formData, setFormData] = useState({
     description: ""
@@ -12,6 +13,7 @@ function UploadPost() {
   const [preview, setPreview] = useState()
   const [openPopUp, setOpenPopUp] = useState(false)
   const [error, setError] = useState({ iserror: false, msg: "" });
+  const [loading, setLoading] = useState(false)
   const textAreaRef = useRef(null)
   const navigate = useNavigate();
 
@@ -81,6 +83,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       const form = new FormData();
       form.append("image", file)
       form.append("description", description)
+      setLoading(true)
       const res = await axios.post(`${import.meta.env.VITE_URL}/post/create`, form, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -89,6 +92,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       })
       navigate('/')
     } catch (error) {
+      setLoading(false)
       console.error(error)
       if(error.response && error.response.status == 400) {
         if(error.response.data.error == "cookie not found") return setOpenPopUp(true)
@@ -113,13 +117,13 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
       {!file && <p>Click here to select the image</p>}
       </label>
       <input accept="image/*" className="hidden" type="file" id="myfile" name="myfile" onChange={handleFileChange}></input>
-      <form onSubmit={handleform} encType='multipart/form-data' className="flex flex-col font-inter font-regular w-[325px] justify-center items-center">
+      <form onSubmit={handleform} encType='multipart/form-data' className="flex flex-col font-inter font-regular w-[325px] justify-center items-center mb-10">
         {
           error.iserror && <p className='text-red-500 w-full text-right p-3'>{error.msg}</p>
         }
         <label className="font-poppins mr-36">Enter description</label>
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"2"} ref={textAreaRef} placeholder="Type something here..."></textarea>
-        <Button>SUBMIT 😋</Button>
+        <Button>{ loading ? <Loading/> : "SUBMIT 😋"}</Button>
       </form>
 
     </div>
