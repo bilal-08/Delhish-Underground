@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Button from './Button/Button';
 import axios from 'axios'
 import Loading from './Loading/Loading';
@@ -48,6 +48,8 @@ function Login() {
         withCredentials: true,
       })
       localStorage.setItem("DUusername", res.data.id)
+      localStorage.setItem("DUavatar", res.data.avatar)
+
       navigate('/')
     } catch (error) {
       setLoading(false)
@@ -74,6 +76,7 @@ function Login() {
           <span onClick={() => { setIsEyeOpen((open) => !open) }} className="absolute right-0 m-3 select-none"><img className="h-6 w-6" src={isEyeOpen ? "/eye-open.png" : "/eye-closed.png"}></img></span>
         </div>
         <Button disabled={loading?true:false}>{ loading ? <Loading/> : "LOGIN"}</Button>
+       <p className="mt-6">Don't have an account? <Link to={'/signup'} className="text-blue-600 hover:text-blue-800">Signup</Link> </p><p></p>
       </form>
 
       {/* 647599,7d88a0 */}

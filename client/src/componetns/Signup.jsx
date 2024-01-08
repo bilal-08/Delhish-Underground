@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import Button from './Button/Button';
 import Loading from './Loading/Loading';
+import { Link } from 'react-router-dom';
 function Signup() {
     const [formData,setFormData] = useState({
         email:"",
@@ -80,10 +81,11 @@ function Signup() {
           <input id="password" className="p-3  w-full mb-3 border-b-2 border-black text-black bg-none outline-none peer/password" type={isEyeOpen ? "text" : "password"} onChange={handleChange} value={formData.password} name="password"></input>
           <label htmlFor="password" className={`absolute left-0 p-3 font-poppins font-light text-gray-800 text-semibold transition  peer-focus/password:-translate-y-[25px] peer-focus/password:text-sm select-none ${formData.password ? "text-sm -translate-y-[25px]" : "text-lg max-sm:text-sm"}`}>Password</label>
           
-          <input id="confirmPassword" className="p-3  w-full mb-3 border-b-2 border-black text-black bg-none outline-none peer/confirmPassword" type={isEyeOpen ? "text" : "confirmPassword"} onChange={handleChange} value={formData.confirmPassword} name="confirmPassword"></input>
+          <input id="confirmPassword" className="p-3  w-full mb-3 border-b-2 border-black text-black bg-none outline-none peer/confirmPassword" type={isEyeOpen ? "text" : "password"} onChange={handleChange} value={formData.confirmPassword} name="confirmPassword"></input>
           <label htmlFor="confirmPassword" className={`absolute left-0 p-3 font-poppins font-light text-gray-800 text-semibold transition  peer-focus/confirmPassword:-translate-y-[25px] peer-focus/confirmPassword:text-sm select-none ${formData.confirmPassword ? "text-sm -translate-y-[25px]" : "text-lg max-sm:text-sm"}`}>Confirm Password</label>
           <label onClick={() => { setIsEyeOpen((open) => !open) }} className="absolute right-0 m-3 select-none"><img className="h-6 w-6" src={isEyeOpen ? "/eye-open.png" : "/eye-closed.png"}></img></label>
           <Button disabled={loading?true:false}>{ loading ? <Loading/> : "Sign-up!"}</Button>
+       <p className="mt-6 font-poppins font-regular flex justify-center gap-1">Already have an Account? <Link to={"/login"} className="text-blue-600 hover:text-blue-800">Login</Link></p><p></p>
         </div>
             </form>
         </div>
