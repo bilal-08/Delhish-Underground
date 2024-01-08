@@ -86,7 +86,7 @@ export const logout = (req, res) => {
 
 
 export const updateProfile = async (req,res) =>{
-    const { username, email, password,avatar} = req.body
+    const { password,avatar} = req.body
     let imagePath 
     if(req.file) imagePath = req.file.path;
     let img
@@ -100,7 +100,7 @@ export const updateProfile = async (req,res) =>{
         const salt = await bcrypt.genSalt(15);
         userData.password = await bcrypt.hash(password,salt)
     }
-    userData.avatar = img
+    if(imagePath)userData.avatar = img
     try {
         const user = await User.updateOne({_id:res.locals.user},userData)
         if (user) {

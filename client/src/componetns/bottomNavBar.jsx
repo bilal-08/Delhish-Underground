@@ -23,7 +23,7 @@ function BottomNavBar () {
     <Link to={'/'}><div className="hover:bg-[#f2f2f2] p-3 rounded-lg transition-transform ease-out active:transform active:scale-75 duration-700 opacity-100 active:opacity-75 hover:scale-110"> <img src={pathname =="/" ? "/home-active.png" : "/home-7-line.png"} className="h-[24px] w-[24px]"></img></div></Link>
     <Link to={'/blogs'}><div className="hover:bg-[#f2f2f2] p-3 rounded-lg transition-transform ease-out active:transform active:scale-75 duration-700 opacity-100 active:opacity-75 hover:scale-110"> <img src={pathname == "/blogs" ?"/restaurant-active.png":"/restaurant-line.png"} className="h-[24px] w-[24px]"></img></div></Link>
     <div className="hover:bg-[#f2f2f2] p-3 rounded-lg transition-transform ease-out active:transform active:scale-75 duration-700 opacity-100 active:opacity-75 hover:scale-110" onClick={()=>{setIsOpen(true)}} ><img src={isOpen ? "/plus-active.png" : "/plus-icon.png"} className="h-[24px] w-[24px]"></img></div>
-    <Link to={'/profile'}><div className="w-6 h-6 "><img className={`w-6 h-6 rounded-full ${pathname == "/profile" ? "border-black border-[1.5px]":""}`} src={avatar}></img></div></Link>
+    <Link to={'/profile'}><div className="w-6 h-6 "><img className={`w-6 h-6 object-cover rounded-full ${pathname == "/profile" ? "border-black border-[1.5px]":""}`} src={avatar}></img></div></Link>
     </div>
     </>
 }

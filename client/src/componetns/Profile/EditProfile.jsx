@@ -1,6 +1,7 @@
 import { useState,useEffect } from 'react';
 import imageCompression from 'browser-image-compression';
 import axios from 'axios'
+import Loading from '../Loading/Loading'
 function EditProfile({setIsEditOpen,userData}){
     const username = localStorage.getItem("DUusername") || "guest"
   const [file, setFile] = useState()
@@ -64,7 +65,6 @@ const [formData,setFormData] = useState({
           );
       };
       const handleform = async (e) => {
-        console.log("submiting")
         e.preventDefault();
         setError(false)
         console.log(formData.password,formData.confirmPassword)
@@ -76,6 +76,10 @@ const [formData,setFormData] = useState({
             setError({iserror:true,msg:"Password and confirm password doesn't match"})
             return;
           }
+        if( formData.password.length && formData.password.length <=7) {
+          setError({iserror:true,msg:"password length should be 8 or more"})
+            return;
+        }
         try {
           setLoading(true)
           const {email,username,password,avatar} = formData
@@ -84,8 +88,8 @@ const [formData,setFormData] = useState({
       form.append("username", username)
       form.append("password", password)
       console.log(file)
-     form.append("image", file)
-      form.append("avatar", avatar)
+      form.append("image", file)
+     if(isProfileRemoved) form.append("avatar", avatar)
       setLoading(true)
         const res = await axios.post(`${import.meta.env.VITE_URL}/edit-profile/update`,
         form,{
@@ -127,25 +131,26 @@ const [formData,setFormData] = useState({
 
         <form onSubmit={handleform} className="font-inter w-full mt-3 block">              
                 <label for="username" className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">username</label>
-            <input name="username" onChange={handleChange} value={formData.username} type="text" id="username" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter username" >
+            <input name="username" onChange={handleChange} value={formData.username} type="text" id="username" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter username" >
             </input>
             <label for="email" className={`block mb-2 text-sm font-medium ${error.iserror && error.msg == "Please Enter a valid email" ? "text-red-700 dark:text-red-500" :  "text-gray-900 dark:text-white"}`}>email</label>
-            <input name="email" onChange={handleChange} value={formData.email} type="text" id="email" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter email" >
+            <input name="email" onChange={handleChange} value={formData.email} type="text" id="email" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter email" >
             
             </input>
             {error.iserror && error.msg == "Please Enter a valid email" && <p className="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">{error.msg}</p>}
             <label for="password" className={`block mb-2 text-sm font-medium ${error.iserror && error.msg =="Password and confirm password doesn't match" ? "text-red-700 dark:text-red-500" :  "text-gray-900 dark:text-white"}`}>password</label>
-            <input name="password" value={formData.password} onChange={handleChange} type="text" id="password" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your password"></input>
+            <input name="password" value={formData.password} onChange={handleChange} type="text" id="password" className="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter your password"></input>
             {error.iserror && error.msg =="Password and confirm password doesn't match" && <p className="mt-2 text-sm text-red-600 dark:text-red-500 font-medium">{error.msg}</p>
 }
 
         <label value={formData.confirmPassword} for="confirmpassword" className={`block mb-2 text-sm font-medium ${error.iserror && error.msg =="Password and confirm password doesn't match" ? "text-red-700 dark:text-red-500" :  "text-gray-900 dark:text-white"}`}>confirm password</label>
-            <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} type="text" id="confirmpassword" class="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your confirm password"></input>
+            <input name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} type="text" id="confirmpassword" class="bg-gray-50 mb-3 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Enter your confirm password"></input>
             {error.iserror && error.msg =="Password and confirm password doesn't match" && <p className="mt-2 text-sm text-red-600 dark:text-red-500 font-medium mb-3">{error.msg}</p>
 }
+{error.iserror && error.msg == "password length should be 8 or more" && <p className="mt-2 pb-3 text-sm text-red-600 dark:text-red-500 font-medium"> password must be 8 or more character long</p>}
             
-            <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-            <button onClick={()=>{setIsEditOpen(false)}} type="submit" class="text-black mt-3 bg-[#d3d1d1] hover:bg-[#adacac] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Back</button>
+            <button type="submit" className="text-white flex justify-center items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">{loading ? <Loading /> : "Submit"}</button>
+            <button onClick={()=>{setIsEditOpen(false)}} type="submit" class="text-black mt-3 bg-[#d3d1d1] hover:bg-[#adacac] focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center">Back</button>
             </form>
         </div>
         </div>
