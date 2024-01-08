@@ -7,7 +7,8 @@ const userSchema = new Schema({
         type:String,
         required:[true,"Please Enter a username"],
         minlength: 3,
-        maxlength: 64
+        maxlength: 64,
+        unique:true,
     },
     email:{
         type:String,
@@ -26,7 +27,6 @@ const userSchema = new Schema({
 })
 
 userSchema.pre('save', async function (next){
-    // console.log(this)
     const salt = await bcrypt.genSalt(15);
     this.password = await bcrypt.hash(this.password,salt)
     this.avatar = `https://avatar.vercel.sh/${this.username}`
