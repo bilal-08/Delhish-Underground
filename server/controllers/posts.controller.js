@@ -1,12 +1,35 @@
 import Post from "../models/Post.model.js"
-import jwt from "jsonwebtoken"
 import User from "../models/User.model.js"
-import { upload, uploadImg } from "../util/uploadImage.js";
+import { uploadImg } from "../util/uploadImage.js";
 
 export const getAllPost = async (req, res) => {
 
-    const posts = await Post.find({}).sort({ createdAt: -1 })
-    res.send(posts)
+    const postsWithAvatars = await Post.aggregate([
+        {
+          $sort: { createdAt: -1 }
+        },
+        {
+          $lookup: {
+            from: 'users',
+            localField: 'username',
+            foreignField: 'username',
+            as: 'user'
+          }
+        },
+        {
+          $unwind: '$user'
+        },
+        {
+          $project: {
+            _id: 1,
+            imageUrl: 1,
+            description: 1,
+            username:1,
+            avatar: '$user.avatar'
+          }
+        }
+      ]);
+  res.send(postsWithAvatars)
 }
 
 
