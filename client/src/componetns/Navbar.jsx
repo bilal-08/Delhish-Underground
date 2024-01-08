@@ -4,6 +4,8 @@ const Navbar = () => {
     const logout = async() =>{
         await axios.get(`${import.meta.env.VITE_URL}/logout`)
         localStorage.removeItem("DUusername")
+        localStorage.removeItem("DUavatar")
+
     }
     return <>
         <div className="bg-white flex justify-evenly items-center h-20 ">

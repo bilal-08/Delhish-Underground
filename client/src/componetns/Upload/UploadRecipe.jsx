@@ -104,7 +104,7 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
         },
         withCredentials: true,
       })
-      console.log(navigate('/blogs'))
+console.log(navigate('/blogs'))
       console.log(res)
     } catch (error) {
       setLoading(false)
@@ -136,10 +136,6 @@ textAreaRef.current.style.height = textAreaRef.current.scrollHeight + "px"
         }
         <label className="font-poppins mr-48 mt-3">Enter title</label>
         <input className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.title} name="title" rows={"2"} ref={textAreaRef} placeholder="Type something here..."></input>
-        
-        {/* <input className="p-3  w-full mb-3 mt-3
-         rounded-lg text-black bg-[#D9D9D9]" type="text" onChange={handleChange} value={formData.title} name="title" placeholder="Enter title"></input>
-        */}
         <label className="font-poppins mr-36">Enter description</label>
         <textarea className="p-3 active:outline-none rounded-2xl w-full mb-3 mt-2 resize-none border-2 border-black" type="text" onChange={handleChange} value={formData.description} name="description" rows={"3"} ref={textAreaRef} placeholder="Type something here..."></textarea>
         <label className="font-poppins mr-36">Enter instruction</label>
