@@ -23,9 +23,10 @@ const recipeSchema = new Schema({
     ingredients:{
         type:String
     },
-    recipeId:{
-        type:String,
-        default: uuidv4() 
+    recipeId: {
+        type: String,
+        default: uuidv4,
+        unique: true
     },
     
 },{ timestamps: true })
