@@ -11,7 +11,8 @@ const ProfileTab = ({setIsEditOpen,setData}) => {
         recipeCount:0,
         posts:[],
         recipes:[],
-        avatar:`https://avatar.vercel.sh/${username}`
+        avatar:`https://avatar.vercel.sh/${username}`,
+        isFetched:false
     })
     useEffect(() => {
         const getUserData = async()=>{
@@ -32,7 +33,8 @@ const ProfileTab = ({setIsEditOpen,setData}) => {
                 recipeCount,
                 posts,
                 recipes,
-                avatar
+                avatar,
+                isFetched:true
            })
            setData({
             email,username,avatar
@@ -73,7 +75,7 @@ return <>
             </div>
             {(!userData.postCount || !userData.recipeCount) && <CardSkeleton/>}
             {
-               (userData.postCount || userData.recipeCount) && isActive == "posts" ? <PostCard data={userData.posts}/> : <RecipeCard data={userData.recipes}/>
+               (userData.postCount || userData.recipeCount) && isActive == "posts" ? <PostCard data={userData.posts} isFetched={userData.isFetched}/> : <RecipeCard data={userData.recipes} isFetched={userData.isFetched}/>
             }
         </div>
     </div>

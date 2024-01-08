@@ -1,7 +1,7 @@
 
-function RecipeCard({data}){
+function RecipeCard({data,isFetched}){
     return <>
-    {!data.length && 
+    {(!data.length && isFetched) && 
             <div className="h-72 flex flex-col justify-center items-center"><img className="w-24 h-24" src="/zero.png"></img>
             <p className="p-3 font-poppins font-regular">No Recipe found</p></div>
             }
