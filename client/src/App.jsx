@@ -6,6 +6,7 @@ import Signup from './componetns/Signup';
 import Login from './componetns/Login';
 import UploadRecipe from './componetns/Upload/UploadRecipe';
 import UploadPost from './componetns/Upload/UploadPost';
+import Profile from './pages/Profile';
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="upload/recipe" element={<UploadRecipe />} />
           <Route path="upload/post" element={<UploadPost />} />
+          <Route path="profile" element={<Profile/>} />
       </Route>
     </Routes>
     </BrowserRouter>
