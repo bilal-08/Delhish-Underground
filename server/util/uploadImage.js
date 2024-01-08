@@ -5,6 +5,7 @@ import FormData from 'form-data'
 import fs from 'fs';
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
+    // it's only done for vercel
     cb(null, '/tmp/');
   },
   filename: (req, file, cb) => {
