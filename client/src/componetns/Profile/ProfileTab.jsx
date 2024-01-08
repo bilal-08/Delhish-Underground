@@ -73,7 +73,7 @@ return <>
             </div>
             {(!userData.postCount || !userData.recipeCount) && <CardSkeleton/>}
             {
-                isActive == "posts" ? <PostCard data={userData.posts}/> : <RecipeCard data={userData.recipes}/>
+               (userData.postCount || userData.recipeCount) && isActive == "posts" ? <PostCard data={userData.posts}/> : <RecipeCard data={userData.recipes}/>
             }
         </div>
     </div>
